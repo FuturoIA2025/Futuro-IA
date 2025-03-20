@@ -1,0 +1,67 @@
+    1  pip install -r requirements.txt
+    2  pip install -r requirements.txt
+    3  ls
+    4  pip install -r requirements.txt
+    5  ls
+    6  python bot.py
+    7  git add .
+    8  git commit -m "Guardando progreso del bot"
+    9  rm bot.py
+   10  ls -l
+   11  /home/codespace/.python/current/bin/python /workspaces/Futuro-IA/bot.py
+   12  python bot.py
+   13  git status
+   14  git add .
+   15  git commit -m "Guardando cambios en el bot"
+   16  git push origin main
+   17  python bot.py
+   18  ps aux | grep python
+   19  python bot.py
+   20  curl https://api.telegram.org/bot7807962142:AAE5dkfA8y7T5YylhUuNWZuI5lq2R0FpPAs/getMe
+   21  curl https://api.telegram.org/bot7807962142:AAE5dkfA8y7T5YylhUuNWZuI5lq2R0FpPAs/getUpdates
+   22  python bot.py
+   23  ls
+   24  python bot.py
+   25  python bot.py 2>&1 | tee error_log.txt
+   26  ps aux | grep python
+   27  cd /workspaces/Futuro-IA
+   28  python bot.py
+   29  ps aux | grep python
+   30  python bot.py
+   31  chmod +w bot.py
+   32  ls -l bot.py
+   33  sudo chmod 777 bot.py
+   34  rm bot.py
+   35  touch bot.py
+   36  ls -l
+   37  cat bot.py
+   38  ps aux | grep python
+   39  python bot.py
+   40  ls -l
+   41  git status
+   42  git checkout -- bot.py
+   43  find /workspaces/Futuro-IA -name "bot.py"
+   44  mv /ruta/del/archivo/bot.py /workspaces/Futuro-IA/
+   45  git pull origin main
+   46  ls -l
+   47  find /workspaces/Futuro-IA -name "bot.py"
+   48  cat bot.py
+   49  code bot.py
+   50  ls -lh
+   51  pip install transformers safetensors
+   52  python bot.py
+   53  pip install python-telegram-bot --upgrade
+   54  pip show python-telegram-bot
+   55  pip install --upgrade python-telegram-bot
+   56  python bot.py
+   57  git status
+   58  git add .
+   59  git commit -m "Guardando cambios en el bot"
+   60  git push origin main
+   61  python bot.py
+   62  ps aux | grep python
+   63  history > historial_bot.txt
+   64  ps aux | grep python
+   65  python bot.py
+   66  curl -X POST "https://api.telegram.org/bot7807962142:AAE5dkfA8y7T5YylhUuNWZuI5lq2R0FpPAs/getMe"
+   67  history > historial_bot.txt
