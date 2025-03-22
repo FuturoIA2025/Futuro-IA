@@ -4,19 +4,25 @@ from dotenv import load_dotenv
 
 # 🔹 Cargar variables de entorno desde .env
 load_dotenv()
-TOKEN = os.getenv("7807962142:AAE5dkfA8y7T5YylhUuNWZuI5lq2R0FpPAs")  # 🔹 Obtiene el token desde .env
 
-bot = telebot.TeleBot(TOKEN)
+# 🔹 Obtener el token desde la variable de entorno
+TOKEN = os.getenv("TELEGRAM_BOT_TOKEN")  # Aquí va el nombre de la variable, NO el token directo
 
-print("Bot iniciado...")
-print("Esperando mensajes...")
+# 🔹 Verificar si el token se está cargando correctamente
+if not TOKEN:
+    raise ValueError("❌ ERROR: No se encontró el TOKEN. Revisa tu archivo .env")
 
-@bot.message_handler(commands=['start'])
-def send_welcome(message):
-    bot.reply_to(message, "¡Hola! Soy tu bot.")
+    bot = telebot.TeleBot(TOKEN)
 
-    @bot.message_handler(func=lambda message: True)
-    def echo_all(message):
-        bot.reply_to(message, f"Dijiste: {message.text}")
+    print("✅ Bot iniciado correctamente")
+    print("📩 Esperando mensajes...")
 
-        bot.polling(none_stop=True, timeout=60)
+    @bot.message_handler(commands=['start'])
+    def send_welcome(message):
+        bot.reply_to(message, "¡Hola! Soy tu bot.")
+
+        @bot.message_handler(func=lambda message: True)
+        def echo_all(message):
+            bot.reply_to(message, f"Dijiste: {message.text}")
+
+            bot.polling(none_stop=True, timeout=60)
