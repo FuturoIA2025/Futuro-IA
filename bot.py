@@ -5,8 +5,7 @@ bot = telebot.TeleBot(TOKEN)
 
 @bot.message_handler(commands=['start', 'help'])
 def send_welcome(message):
-    print(f"Mensaje recibido: {message.text}")  # Depuración
-        bot.reply_to(message, "¡Hola! Soy tu bot de Telegram.")
+    bot.reply_to(message, "¡Hola! Soy tu bot de Telegram.")  # ← Esta línea estaba mal indentada
 
-        print("Bot iniciado...")
-        bot.polling(none_stop=True, interval=0, timeout=20)
+    print("Bot iniciado...")
+    bot.polling(none_stop=True)
