@@ -1,28 +1,13 @@
-import telebot
 import os
 from dotenv import load_dotenv
 
-# 🔹 Cargar variables de entorno desde .env
+# Cargar las variables del archivo .env
 load_dotenv()
 
-# 🔹 Obtener el token desde la variable de entorno
-TOKEN = os.getenv("TELEGRAM_BOT_TOKEN")  # Aquí va el nombre de la variable, NO el token directo
+# Obtener los tokens desde el .env
+HUGGINGFACE_TOKEN = os.getenv("HUGGINGFACE_TOKE")  # <-- Corrige aquí
+TELEGRAM_BOT_TOKEN = os.getenv("TELEGRAM_BOT_TOKEN")
 
-# 🔹 Verificar si el token se está cargando correctamente
-if not TOKEN:
-    raise ValueError("❌ ERROR: No se encontró el TOKEN. Revisa tu archivo .env")
-
-    bot = telebot.TeleBot(TOKEN)
-
-    print("✅ Bot iniciado correctamente")
-    print("📩 Esperando mensajes...")
-
-    @bot.message_handler(commands=['start'])
-    def send_welcome(message):
-        bot.reply_to(message, "¡Hola! Soy tu bot.")
-
-        @bot.message_handler(func=lambda message: True)
-        def echo_all(message):
-            bot.reply_to(message, f"Dijiste: {message.text}")
-
-            bot.polling(none_stop=True, timeout=60)
+# Verificar que los tokens se están cargando correctamente
+print("Hugging Face Token:", HUGGINGFACE_TOKEN)
+print("Telegram Bot Token:", TELEGRAM_BOT_TOKEN)
