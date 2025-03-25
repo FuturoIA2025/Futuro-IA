@@ -1,7 +1,12 @@
-import os
 from dotenv import load_dotenv
+import os
 
-load_dotenv()  # Carga las variables del archivo .env
+# Cargar las variables de entorno del archivo .env
+load_dotenv()
 
-TELEGRAM_TOKEN = os.getenv("TELEGRAM_TOKEN")
-HUGGINGFACE_TOKEN = os.getenv("HUGGINGFACE_TOKEN")
+# Obtener los tokens
+TOKEN = os.getenv("TOKEN")
+API_KEY = os.getenv("API_KEY")
+
+print("TOKEN:", TOKEN)  # Para depurar, revisa si imprime el token (borra esto después)
+print("API_KEY:", API_KEY)  # Igual para la API key
