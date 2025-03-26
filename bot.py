@@ -1,7 +1,12 @@
 import requests
 import time
+from dotenv import load_dotenv
+import os
 
-TOKEN = "7791864132:AAHwPV7f4BgV4U0tTqnWY1Zv-X9gxwEWeY0"  # Reemplaza con tu token de Telegram
+# Cargar variables de entorno desde el archivo .env
+load_dotenv()
+
+TOKEN = os.getenv("TELEGRAM_TOKEN")  # Leer el token desde la variable de entorno
 URL_BASE = f"https://api.telegram.org/bot{TOKEN}"
 
 def responder_mensaje(chat_id, mensaje):
@@ -28,13 +33,13 @@ def responder_mensaje(chat_id, mensaje):
                                                                                                                         chat_id = update["message"]["chat"]["id"]
                                                                                                                                             text = update["message"]["text"]
                                                                                                                                                                 print(f"Mensaje recibido: {text}")
-                                                                                                                                                                                    
-                                                                                                                                                                                                        if text.lower() == "/start":
-                                                                                                                                                                                                                                responder_mensaje(chat_id, "¡Hola! Estoy funcionando.")
-                                                                                                                                                                                                                                                    else:
-                                                                                                                                                                                                                                                                            responder_mensaje(chat_id, f"Recibí tu mensaje: {text}")
 
-                                                                                                                                                                                                                                                                                    time.sleep(2)  # Evita hacer demasiadas peticiones seguidas
+                                                                                                                                                                                    if text.lower() == "/start":
+                                                                                                                                                                                                            responder_mensaje(chat_id, "¡Hola! Estoy funcionando.")
+                                                                                                                                                                                                                                else:
+                                                                                                                                                                                                                                                        responder_mensaje(chat_id, f"Recibí tu mensaje: {text}")
 
-                                                                                                                                                                                                                                                                                    if __name__ == "__main__":
-                                                                                                                                                                                                                                                                                        main()
+                                                                                                                                                                                                                                                                time.sleep(2)  # Evita hacer demasiadas peticiones seguidas
+
+                                                                                                                                                                                                                                                                if __name__ == "__main__":
+                                                                                                                                                                                                                                                                    main()
