@@ -1,19 +1,10 @@
 import os
-from dotenv import load_dotenv  # Importa dotenv
+from dotenv import load_dotenv
 
-# Cargar variables de entorno
+# Cargar las variables desde .env
 load_dotenv()
 
-# Obtener los tokens
+# Obtener los valores de las variables
 TELEGRAM_TOKEN = os.getenv("TELEGRAM_TOKEN")
+TELEGRAM_CHAT_ID = os.getenv("TELEGRAM_CHAT_ID")
 HUGGINGFACE_TOKEN = os.getenv("HUGGINGFACE_TOKEN")
-CHAT_ID = os.getenv("TELEGRAM_CHAT_ID")
-
-# Verificar que se cargaron correctamente
-print("TELEGRAM_TOKEN:", TELEGRAM_TOKEN)
-print("HUGGINGFACE_TOKEN:", HUGGINGFACE_TOKEN)
-print("CHAT_ID:", CHAT_ID)
-
-# Validar que los tokens existen
-if not TELEGRAM_TOKEN:
-    raise ValueError("Error: TELEGRAM_TOKEN no está configurado en el entorno")
