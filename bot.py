@@ -1,19 +1,43 @@
 import telegram
-from transformers import pipeline
-from config import TELEGRAM_TOKEN, TELEGRAM_CHAT_ID, HUGGINGFACE_TOKEN
+from telegram.ext import Updater, CommandHandler, MessageHandler, Filters
+from Config import TELEGRAM_TOKEN, TELEGRAM_CHAT_ID, HUGGINGFACE_TOKEN
+import requests
 
-# Inicializar el bot de Telegram y el pipeline de Hugging Face
-bot = telegram.Bot(token=TELEGRAM_TOKEN)
-generator = pipeline('text-generation', model="Mistralai/Mistral-7B", use_auth_token=HUGGINGFACE_TOKEN)
+# URL del modelo en Hugging Face (puedes cambiarlo si tienes otro modelo)
+API_URL = "https://api-inference.huggingface.co/models/facebook/blenderbot-400M-distill"
 
-def send_message(message):
- """Enviar mensaje al chat de Telegram"""
- bot.send_message(chat_id=TELEGRAM_CHAT_ID, text=message)
+# Función para obtener respuesta desde Hugging Face
+def get_response_from_huggingface(user_message):
+ headers = {"Authorization": f"Bearer {HUGGINGFACE_TOKEN}"}
+ payload = {"inputs": user_message}
 
+ response = requests.post(API_URL, headers=headers, json=payload)
+
+ if response.status_code == 200:
+  return response.json()[0]["generated_text"]
+ else:
+  return "Lo siento, hubo un error procesando tu mensaje."
+
+  # Función de inicio
+def start(update, context):
+  update.message.reply_text("¡Hola! Soy tu bot de IA. Envíame un mensaje y te responderé con inteligencia artificial.")
+
+  # Función para manejar los mensajes
+def reply(update, context):
+  user_message = update.message.text
+  response = get_response_from_huggingface(user_message)
+  update.message.reply_text(response)
+
+  # Configurar el bot
 def main():
- """Generar respuesta y enviar al chat"""
-response = generator("Escribe algo que pueda entender el bot...", max_length=100)[0]['generated_text']
-send_message(response)
+ updater = Updater(TELEGRAM_TOKEN, use_context=True)
+ dp = updater.dispatcher
 
-if __name__ == '__main__':
-     main()
+ dp.add_handler(CommandHandler("start", start))
+ dp.add_handler(MessageHandler(Filters.text & ~Filters.command, reply))
+
+ updater.start_polling()
+ updater.idle()
+
+ if __name__ == "__main__":
+   main()
