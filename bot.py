@@ -1,47 +1,68 @@
-import telegram
-from telegram.ext import Updater, CommandHandler, MessageHandler, filters
-from Config import TELEGRAM_TOKEN, TELEGRAM_CHAT_ID, HUGGINGFACE_TOKEN
+import telebot
+import os
 import requests
+from flask import Flask, request
 
-# URL del modelo en Hugging Face (puedes cambiarlo si tienes otro modelo)
-API_URL = "https://api-inference.huggingface.co/models/facebook/blenderbot-400M-distill"
+# Cargar variables de entorno
+TOKEN = os.getenv("TELEGRAM_TOKEN")
+CHAT_ID = os.getenv("TELEGRAM_CHAT_ID")  # Para enviar mensajes automáticos
+PORT = int(os.getenv("PORT", 5000))  # Puerto para la API Web
 
-# Función para obtener respuesta desde Hugging Face
-def get_response_from_huggingface(user_message):
- headers = {"Authorization": f"Bearer {HUGGINGFACE_TOKEN}"}
- payload = {"inputs": user_message}
+if not TOKEN or not CHAT_ID:
+    print("Error: Falta TELEGRAM_TOKEN o TELEGRAM_CHAT_ID en el .env")
+    exit()
 
- response = requests.post(API_URL, headers=headers, json=payload)
+    bot = telebot.TeleBot(TOKEN)
+    app = Flask(__name__)
 
- if response.status_code == 200:
-  return response.json()[0]["generated_text"]
- else:
-  return "Lo siento, hubo un error procesando tu mensaje."
+    # ======= TELEGRAM BOT ======= #
 
-  # Función de inicio
-def start(update, context):
-  update.message.reply_text("¡Hola! Soy tu bot de IA. Envíame un mensaje y te responderé con inteligencia artificial.")
+    @bot.message_handler(commands=['start'])
+    def send_welcome(message):
+     bot.reply_to(message, "¡Hola! Soy tu asistente supremo.")
 
-  # Función para manejar los mensajes
-def reply(update, context):
-  user_message = update.message.text
-  response = get_response_from_huggingface(user_message)
-  update.message.reply_text(response)
+    @bot.message_handler(func=lambda message: True)
+    def echo_all(message):
+     bot.reply_to(message, f"Me dijiste: {message.text}")
 
-  # Configurar el bot
-def main():
- updater = Updater(TELEGRAM_TOKEN, use_context=True)
- dp = updater.dispatcher
+    # ======= MENSAJE AUTOMÁTICO A TELEGRAM ======= #
 
- dp.add_handler(CommandHandler("start", start))
- dp.add_handler(MessageHandler(Filters.text & ~Filters.command, reply))
+    def send_telegram_message(text):
+     url = f"https://api.telegram.org/bot{TOKEN}/sendMessage"
+     data = {"chat_id": CHAT_ID, "text": text}
+     response = requests.post(url, json=data)
+     return response.json()
 
- updater.start_polling()
- updater.idle()
+     # ======= API WEB (HUGGING FACE) ======= #
 
- if __name__ == "__main__":
-   main()
- import time
- while True:
-     print("El bot está ejecutándose...")
-     time.sleep(5)
+    @app.route("/", methods=["GET"])
+    def home():
+     return "¡Hola! La API está funcionando."
+
+    @app.route("/chat", methods=["POST"])
+    def chat():
+     data = request.json
+     user_message = data.get("message", "")
+
+     if not user_message:
+      return {"error": "No se envió ningún mensaje"}, 400
+
+    response_text = f"Me dijiste: {user_message}"
+
+    # Enviar respuesta a Telegram automáticamente
+    send_telegram_message(response_text)
+
+    return {"response": response_text}
+
+    # ======= INICIAR EL BOT ======= #
+
+    if __name__ == "__main__":
+      ENVIRONMENT = os.getenv("ENVIRONMENT", "development")
+
+    if ENVIRONMENT == "production":
+     print("Iniciando en modo producción (API Web)...")
+    app.run(host="0.0.0.0", port=PORT)  # Para Hugging Face/Railway
+   
+    else:
+    print("Iniciando en modo desarrollo con Telegram...")
+    bot.infinity_polling()
