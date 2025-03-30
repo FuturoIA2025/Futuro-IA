@@ -41,3 +41,7 @@ def main():
 
  if __name__ == "__main__":
    main()
+
+   # Iniciar el bot con polling
+   print("Bot iniciado...")
+   bot.infinity_polling()
