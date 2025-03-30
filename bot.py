@@ -1,5 +1,5 @@
 import telegram
-from telegram.ext import Updater, CommandHandler, MessageHandler, Filters
+from telegram.ext import Updater, CommandHandler, MessageHandler, filters
 from Config import TELEGRAM_TOKEN, TELEGRAM_CHAT_ID, HUGGINGFACE_TOKEN
 import requests
 
