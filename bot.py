@@ -52,9 +52,7 @@ if not TOKEN or not CHAT_ID:
     # Enviar respuesta a Telegram automáticamente
     send_telegram_message(response_text)
 
-    return {"response": response_text}
-
-    # ======= INICIAR EL BOT ======= #
+   # ======= INICIAR EL BOT ======= #
 
     if __name__ == "__main__":
       ENVIRONMENT = os.getenv("ENVIRONMENT", "development")
@@ -63,9 +61,10 @@ if not TOKEN or not CHAT_ID:
      print("Iniciando en modo producción (API Web)...")
     app.run(host="0.0.0.0", port=PORT)  # Para Hugging Face/Railway
    
-    if condición:
-          # Código aquí
-          else:
+    if mensaje == "Hola":
+      print("Hola, ¿cómo estás?")
+    else:
+     print("No entendí tu mensaje.")
               # Código aquí
     print("Iniciando en modo desarrollo con Telegram...")
     bot.infinity_polling()
