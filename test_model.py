@@ -26,7 +26,8 @@ from safetensors.torch import safe_open
 # Asume que "model" es el nombre del tensor en el archivo
 print("Modelo cargado correctamente.")
 # Aquí puedes ajustar el nombre del tensor según tu modelo
-model_weights = f.get_tensor("model")  # Obtén los pesos del modelo
+model_weights = f.get_tensor("model") 
+ # Obtén los pesos del modelo
 
  # Aquí es donde cargamos el modelo usando los pesos extraídos
  # Esto dependerá de la estructura de tu modelo, ajusta según sea necesario
