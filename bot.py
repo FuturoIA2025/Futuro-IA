@@ -1,3 +1,4 @@
+print("Iniciando el bot...")
 import telebot
 import os
 import requests
@@ -66,5 +67,5 @@ if not TOKEN or not CHAT_ID:
     else:
      print("No entendí tu mensaje.")
               # Código aquí
-    print("Iniciando en modo desarrollo con Telegram...")
+    print("Bot en ejecución...")
     bot.infinity_polling()
