@@ -16,13 +16,22 @@ log_file = "errores_log.txt"
 for path in model_paths:
                  print(f"Intentando cargar el modelo desde {path}...")
  # Usamos safetensors para abrir el archivo y extraer los pesos
-with safe_open(path) as f:
-# Aquí puedes ajustar el nombre del tensor según tu modelo
-                                                             model_weights = f.get_tensor("model")  # Obtén los pesos del modelo
+from safetensors.torch import safe_open
 
-                                                                     # Aquí es donde cargamos el modelo usando los pesos extraídos
-                                                                             # Esto dependerá de la estructura de tu modelo, ajusta según sea necesario
-                                                                                     # Por ejemplo, puedes usar el modelo de Hugging Face de esta manera:
+# Define la ruta correcta a tu archivo .safetensors
+path = "ruta/a/tu/archivo.safetensors"
+
+# Usamos safe_open correctamente
+with safe_open(path) as f:
+    # Aquí puedes trabajar con el archivo
+        model_weights = f.get_tensor("model")  # Asume que "model" es el nombre del tensor en el archivo
+        print("Modelo cargado correctamente.")
+# Aquí puedes ajustar el nombre del tensor según tu modelo
+model_weights = f.get_tensor("model")  # Obtén los pesos del modelo
+
+ # Aquí es donde cargamos el modelo usando los pesos extraídos
+ # Esto dependerá de la estructura de tu modelo, ajusta según sea necesario
+ # Por ejemplo, puedes usar el modelo de Hugging Face de esta manera:
                                                                                              
  # Usar AutoModel con los pesos
 model_paths= AutoModel.from_pretrained('bert-base-uncased', state_dict=model_weights)  # Ajusta el modelo base según tu tipo
