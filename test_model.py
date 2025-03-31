@@ -22,10 +22,10 @@ from safetensors.torch import safe_open
 path = "ruta/a/tu/archivo.safetensors"
 
 # Usamos safe_open correctamente
-with safe_open(path) as f:
+from safetensors.torch import safe_open
     # Aquí puedes trabajar con el archivo
-        model_weights = f.get_tensor("model")  # Asume que "model" es el nombre del tensor en el archivo
-        print("Modelo cargado correctamente.")
+model_weights = f.get_tensor("model")  # Asume que "model" es el nombre del tensor en el archivo
+print("Modelo cargado correctamente.")
 # Aquí puedes ajustar el nombre del tensor según tu modelo
 model_weights = f.get_tensor("model")  # Obtén los pesos del modelo
 
