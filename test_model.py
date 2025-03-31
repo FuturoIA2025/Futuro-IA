@@ -16,7 +16,7 @@ log_file = "errores_log.txt"
 for path in model_paths:
                  print(f"Intentando cargar el modelo desde {path}...")
  # Usamos safetensors para abrir el archivo y extraer los pesos
-with safe_open(path, framework="pt") as f:
+with safe_open(path) as f:
 # Aquí puedes ajustar el nombre del tensor según tu modelo
                                                              model_weights = f.get_tensor("model")  # Obtén los pesos del modelo
 
