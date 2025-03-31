@@ -63,6 +63,9 @@ if not TOKEN or not CHAT_ID:
      print("Iniciando en modo producción (API Web)...")
     app.run(host="0.0.0.0", port=PORT)  # Para Hugging Face/Railway
    
-    else:
+    if condición:
+          # Código aquí
+          else:
+              # Código aquí
     print("Iniciando en modo desarrollo con Telegram...")
     bot.infinity_polling()
