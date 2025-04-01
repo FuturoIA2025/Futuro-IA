@@ -2,7 +2,7 @@ import torch
 from transformers import AutoModelForCausalLM, AutoTokenizer
 
 # Nombre del modelo
-model_name = "mistralai/Mistral-7B"
+model_name = "mistralai/Mistral-7B-v0.1"
 
 # Verificar si hay GPU disponible
 device = "cuda" if torch.cuda.is_available() else "cpu"
